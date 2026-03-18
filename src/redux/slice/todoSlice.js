@@ -1,10 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  return [
+    { id: 1, text: 'Вивчати Redux Thunk', completed: false },
+    { id: 2, text: 'Зробити домашку', completed: true },
+  ];
+});
 
 const todoSlice = createSlice({
   name: 'todos',
   initialState: {
-    items: [],
-  },
+      items: [],
+      status: 'idle',
+      error: null
+    },
+  
   reducers: {
     addTodo: (state, action) => {
       state.items.push({ id: Date.now(), text: action.payload, completed: false });
@@ -12,6 +24,21 @@ const todoSlice = createSlice({
     removeTodo: (state, action) => {
       state.items = state.items.filter(todo => todo.id !== action.payload);
     },
+    },
+  
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchTodos.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 
