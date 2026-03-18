@@ -1,6 +1,6 @@
-# Home-work-45
+# Home-work-46
 
-Проєкт на React, що демонструє інтеграцію Redux в React-проект
+Проєкт на React, що демонструє інтеграцію Redux Toolkit і Redux Thunk в React-проект
 
 ### Як запустити:
 1. `npm install`
