@@ -7,4 +7,4 @@
 2. `npm run dev`
 
 Демо-версія проекту:
-https://homework-45-chi.vercel.app/
+https://homework-46-sigma.vercel.app/
